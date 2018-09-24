@@ -1,0 +1,279 @@
+# Mod key
+set $mod Mod1
+
+# Application variables
+set $browser  chromium-browser
+set $explorer urxvt -e ranger
+set $music    urxvt -e ncmpcpp
+set $torrent  urxvt -e rtorrent
+set $terminal urxvt
+
+# Configuration for gaps
+gaps inner 20
+gaps outer -10
+smart_gaps on
+
+# Font for window titles
+font pango:FontAwesome 10
+font pango:TamzenForPowerline 11
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Application shortcuts
+bindsym $mod+Return exec $terminal
+bindsym $mod+b exec $browser
+bindsym $mod+m exec $music
+bindsym $mod+n exec $explorer
+bindsym $mod+t exec $torrent
+bindsym Print exec scrot ~/.tmp/tmp.png && xclip ~/.tmp/tmp.png -selection clipboard -t image/png && rm ~/.tmp/tmp.png -f && notify-send -u "low" "Took screenshot (window)"
+bindsym --release Shift+Print exec scrot -s ~/.tmp/tmp.png && xclip ~/.tmp/tmp.png -selection clipboard -t image/png && rm ~/.tmp/tmp.png -f && notify-send -u "low" "Took screenshot (area)"
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start rofi
+bindsym $mod+d exec rofi -show run
+
+# Change focus: vim bindings
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Change focus: cursor keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window: vim bindings
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Move focused window: cursor keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in horizontal orientation
+bindsym $mod+Shift+v split h
+
+# Split in vertical orientation
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+a focus parent
+
+# Focus the child container
+bindsym $mod+Shift+a focus child
+
+# Killing applications
+bindsym $mod+Shift+d focus parent,kill
+
+# Reload the configuration file
+bindsym $mod+Ctrl+r reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Workspace configuration
+set $ws1 "1:1"
+set $ws2 "2:2"
+set $ws3 "3:3"
+set $ws4 "4:4"
+set $ws5 "5:5"
+set $ws6 "6:6"
+set $ws7 "7:7"
+set $ws8 "8:8"
+set $ws9 "9:9"
+set $ws10 "10:0"
+
+# Default workspaces for applications
+assign [class="Chromium-browser"] $ws1
+assign [class="mpv"]              $ws9
+
+# Navigating to workspaces
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Shortcuts for moving workspaces
+bindsym $mod+Ctrl+h move workspace to output right
+bindsym $mod+Ctrl+l move workspace to output left
+
+# Options for logging out, restarting, and shutting down
+bindsym $mod+Shift+e exec power
+
+# Shortcut for i3lock
+bindsym $mod+Shift+x exec lock
+
+# Resize window (can also use mouse)
+mode "resize" {
+  # Vim bindings
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
+
+  # Cursor key bindings
+  bindsym Left resize shrink width 5 px or 5 ppt
+  bindsym Down resize grow height 5 px or 5 ppt
+  bindsym Up resize shrink height 5 px or 5 ppt
+  bindsym Right resize grow width 5 px or 5 ppt
+
+  # Back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -D pulse set Master 1%+; pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -D pulse set Master 1%-; pkill -RTMIN+10 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "amixer -D pulse set Master 0+ toggle ; pkill -RTMIN+10 i3blocks"
+
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec toggletouchpad
+
+# Media player controls
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPlay exec mpc play
+bindsym XF86AudioPause exec mpc pause
+bindsym XF86AudioNext exec mpc next
+bindsym XF86AudioPrev exec mpc prev
+
+# MPD controls
+bindsym $mod+p exec "mpc toggle; pkill -RTMIN+9 i3blocks"
+bindsym $mod+bracketleft exec "mpc prev"
+bindsym $mod+bracketright exec "mpc next"
+
+# Color definitions
+set $base03    #002b36
+set $base02    #073642
+set $base01    #586e75
+set $base00    #657b83
+set $base0     #839496
+set $base1     #93a1a1
+set $base2     #eee8d5
+set $base3     #fdf6e3
+set $yellow    #b58900
+set $orange    #cb4b16
+set $red       #dc322f
+set $magenta   #d33682
+set $violet    #6c71c4
+set $blue      #268bd2
+set $cyan      #2aa198
+set $green     #859900
+
+set $active-bar-bg-color     #fdf6e3
+set $inactive-bar-bg-color   #93a1a1
+set $active-bar-text-color   #002b36
+set $inactive-bar-text-color #002b36
+
+# Window colors
+#                       border     background    text      indicator
+client.focused          $base03    $yellow       $base2    #00ff00
+client.unfocused        $base03    $base03       $base2    #00ff00
+client.focused_inactive $base03    $base03       $base2    #00ff00
+client.urgent           $base03    $base03       $red      #00ff00
+
+hide_edge_borders both
+for_window [class="^.*"]    border pixel 3
+for_window [class="Power"]  border pixel 0
+
+new_float none
+
+# Status bar
+bar {
+  position top
+  font pango: TamzenForPowerline, FontAwesome 10.5
+  status_command i3blocks -c "$HOME/.config/i3/i3blocks.conf"
+  height 18
+  strip_workspace_numbers yes
+  colors {
+    background $base03
+    #                    border                     background              text
+    focused_workspace    $active-bar-bg-color       $active-bar-bg-color    $active-bar-text-color
+    active_workspace     $inactive-bar-bg-color     $inactive-bar-bg-color  $inactive-bar-text-color
+    inactive_workspace   $inactive-bar-bg-color     $inactive-bar-bg-color  $inactive-bar-text-color
+    urgent_workspace     $red                       $red                    $inactive-bar-text-color
+  }
+}
+
+# Set wallpaper
+exec_always feh --bg-scale "$HOME/.config/i3/images/wallpaper.png"
+
+# Configure monitor
+exec_always xrandr --output eDP1 --mode 1600x900
+
+# Configure secondary monitor
+#exec_always xrandr --output DP1 --mode 1920x1080 --right-of eDP1
+
+## Configure startup applications
+# Mount Windows drive
+exec udisksctl mount --block-device /dev/sda5
+
+# Appearance and notifications
+exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id dunst -c ~/.config/dunst/dunstrc
+exec --no-startup-id compton -f
+
+# Tray applets
+exec --no-startup-id redshift-gtk
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+
+# Music player
+exec --no-startup-id i3-msg 'exec [ ! -s ~/.config/mpd/pid ] && mpd '
+exec --no-startup-id i3-msg 'workspace $ws10; exec urxvt -e ncmpcpp; workspace $ws1;'
+
+# Locker
+exec --no-startup-id xautolock -time 10 -locker 'lock'
+
+# Initialize fonts
+exec --no-startup-id xset fp+ ~/fonts/tamzen-font/bdf
+exec --no-startup-id xset fp rehash
