@@ -37,8 +37,8 @@ script. Alternatively, you can check `./config.yaml` to see the dependencies by 
 ### With included bash scripts
 
 ~~~
-git clone https://github.com/jeffrey-xiao/dotfiles.git
-cd dotfiles
+git clone https://github.com/jeffrey-xiao/dotfiles-ubuntu.git
+cd dotfiles-ubuntu
 . ./install.sh
 . ./symlink.sh
 ~~~
@@ -47,8 +47,8 @@ Any errors with the installation will appear in `./install.log`.
 ### With [dotinstall](https://github.com/jeffrey-xiao/dotinstall)
 
 ~~~
-git clone https://github.com/jeffrey-xiao/dotfiles.git
-cd dotfiles
+git clone https://github.com/jeffrey-xiao/dotfiles-ubuntu.git
+cd dotfiles-ubuntu
 git submodule update --init --recursive
 pip3 install -r ./dotinstall/requirements.txt
 python3 ./dotinstall/install.py
